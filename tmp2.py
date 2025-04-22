@@ -7,7 +7,33 @@ from pathlib import Path
 from typing import Dict, Any, Optional, Set, ClassVar, Union, List, Type, Literal
 from pydantic import BaseModel, Field, field_validator, model_validator, ValidationInfo
 
+"""
+pydanticを使用して、jsonファイルをパースを行う処理を作成すると仮定します。
+読み込み対象のjsonファイルは2つあり、それぞれjson_a.jsonとjson_b.jsonとします。
+json_a.jsonにキー"key_a1"が定義されている場合、json_b.jsonにはキー"key_b1"および"key_b2"が定義されている必要があり、
+json_a.jsonにキー"key_a1"が定義されていない場合、json_b.jsonにはキー"key_b1"および"key_b2"が定義されても無視する必要があります。
 
+さらにjson_a.jsonのキー"key_a2"、"key_a3"、"key_a4"、"key_a5"は複雑な処理によって決まる変数paramによって、
+キーの要否が決まるものとします。
+例えば今回は、
+    paramが0の場合、キー"key_a2"のみ定義されている必要があり、それ以外は無視する
+    paramが1の場合、キー"key_a2"および"key_a3"が定義されている必要があり、それ以外は無視する
+    paramが2の場合、キー"key_a3"および"key_a4"が定義されている必要があり、それ以外は無視する
+    paramが3の場合、キー"key_a2"およびキー"key_a4"および"key_a5"が定義されている必要があり、それ以外は無視する
+    上記以外の場合は、"key_a2"、"key_a3"、"key_a4"、"key_a5"を無視する
+ものとします。
+
+このような場合はどのように実装するのが適切でしょうか?
+"""
+
+"""
+追加の要件です。
+2つのjsonファイルのキーは基本的にはすべてファイルパスとします。
+json_a.jsonにキー"key_a6"を追加します。型はbool型とします。
+Trueの場合は、キー"key_a2"、"key_a3"はURLとします。
+Falseの場合は、キー"key_a2"、"key_a3"はファイルパスとします。
+
+"""
 # 検証ロジックの抽象基底クラス
 class Validator(ABC):
     @abstractmethod
