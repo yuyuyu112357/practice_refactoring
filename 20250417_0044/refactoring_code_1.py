@@ -23,11 +23,11 @@ LOG_DIR = Path("logs")
 OUTPUT_DIR = Path("reports")
 
 
-class LogDataSource(Protocol):
+class DataSource(Protocol):
     def open_stream(self) -> IO[str]: ...
 
 
-class FileLogDataSource:
+class FileDataSource:
 
     def __init__(self, filename: Path) -> None:
         self._file_path = filename
@@ -47,7 +47,7 @@ class InMemoryDataSource:
 
 class LogAnalyzer:
 
-    def __init__(self, data_source: LogDataSource) -> None:
+    def __init__(self, data_source: DataSource) -> None:
         self._data_source = data_source
 
     def analyze(self, counters: Iterable[Countable]) -> None:
@@ -361,7 +361,7 @@ def analyze_logs(counters: Counters, errors: list[str]) -> None:
         print(f"ファイル処理中: {filename}")
 
         try:
-            data_source = FileLogDataSource(filename)
+            data_source = FileDataSource(filename)
             log_analyzer = LogAnalyzer(data_source)
             log_analyzer.analyze(counters)
         except Exception as e:

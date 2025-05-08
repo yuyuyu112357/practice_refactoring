@@ -1,0 +1,7 @@
+input_dir = "data/input"
+output_dir = "data/output"
+archive_dir = "data/archive"
+error_dir = "data/errors"
+log_file = "processor.log"
+max_retry = 3
+batch_size = 100

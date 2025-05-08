@@ -7,4 +7,7 @@
     <orderEntry type="jdk" jdkName="uv (tmp_study)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
+  <component name="PackageRequirementsSettings">
+    <option name="versionSpecifier" value="完全一致 (==x.y.z)" />
+  </component>
 </module>
